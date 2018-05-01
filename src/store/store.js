@@ -22,11 +22,38 @@ export const store = new Vuex.Store({
   mutations: {
     'RND_STOCKS': (state) => {
       state.stocks.forEach(stock => stock.price += Math.round((Math.random() / 2 - 1/4) * stock.price))
+    },
+    'SELL_STOCK': (state, order) => {
+      const myStock = state.portfolio.myStocks.find(element => element.id == order.id);
+      if (myStock.quantity <= order.quantity) {
+        state.portfolio.myStocks.splice(state.portfolio.myStocks.indexOf(myStock), 1);
+      } else {
+        myStock.quantity -= order.quantity;
+      }
+      state.portfolio.funds += order.price * order.quantity;
+    },
+    'BUY_STOCK': (state, order) => {
+      const myStock = state.portfolio.myStocks.find(element => element.id == order.id);
+      if (myStock) {
+        myStock.quantity += order.quantity;
+      } else {
+        state.portfolio.myStocks.push({
+          id: order.id,
+          quantity: order.quantity
+        })
+      }
+      state.portfolio.funds -= order.price * order.quantity;
     }
   },
   actions: {
     randomizeStocks: ({commit}) => {
       commit('RND_STOCKS');
+    },
+    buyStock: ({commit}, order) => {
+      commit('BUY_STOCK', order);
+    },
+    sellStock: ({commit}, order) => {
+      commit('SELL_STOCK', order);
     }
   },
   getters: {
