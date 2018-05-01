@@ -20,6 +20,10 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
+    'SET_STATE': (state, initData) => {
+      state.stocks = initData.stocks;
+      state.portfolio = initData.portfolio;
+    },
     'RND_STOCKS': (state) => {
       state.stocks.forEach(stock => stock.price += Math.round((Math.random() / 2 - 1/4) * stock.price))
     },
@@ -54,6 +58,9 @@ export const store = new Vuex.Store({
     },
     sellStock: ({commit}, order) => {
       commit('SELL_STOCK', order);
+    },
+    initializeState: ({commit}, initData) => {
+      commit('SET_STATE', initData);
     }
   },
   getters: {
@@ -73,6 +80,9 @@ export const store = new Vuex.Store({
           quantity: myStock.quantity
         }
       });
+    },
+    getState: (state) => {
+      return state;
     }
   }
 });

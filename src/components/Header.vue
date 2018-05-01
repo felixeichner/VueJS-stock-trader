@@ -33,8 +33,8 @@
             Save / Load Data
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Save Data</a>
-            <a class="dropdown-item" href="#">Load Data</a>
+            <a class="dropdown-item" href="#" @click="saveData">Save Data</a>
+            <a class="dropdown-item" href="#" @click="loadData">Load Data</a>
           </div>
         </li>
       </ul>
@@ -53,6 +53,14 @@ export default {
   methods: {
     endDay() {
       this.$store.dispatch('randomizeStocks');
+    },
+    saveData() {
+      this.$http.put('data.json', this.$store.getters.getState);
+    },
+    loadData() {
+      this.$http.get('data.json')
+        .then(response => response.json())
+        .then(data => this.$store.dispatch('initializeState', data))
     }
   }
 }

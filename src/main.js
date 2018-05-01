@@ -14,6 +14,8 @@ Vue.filter('currency', value => {
   return '€ ' + value.toLocaleString();
 });
 
+Vue.http.options.root = "https://stock-trader-ce738.firebaseio.com/";
+
 const router = new VueRouter({
   mode: 'history',
   routes
