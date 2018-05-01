@@ -1,15 +1,16 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <strong class="float-left">{{ stock.name }}</strong>
-      <small class="float-right">Price: {{ stock.price }}</small>
+      <strong>{{ stock.name }}</strong>
+      <small>Price: {{ stock.price | currency }}</small>
+      <small v-if="stock.quantity">Quantity: {{ stock.quantity }}</small>
     </div>
     <div class="card-body">
       <div class="float-left">
         <input type="number" v-model="quantity">
       </div>
       <div class="float-right">
-        <button class="btn btn-success" :disabled="quantity <= 0">Buy</button>
+        <button class="btn btn-success" :disabled="quantity <= 0">{{ stock.quantity ? 'Sell' : 'Buy' }}</button>
       </div>
     </div>
   </div>
@@ -32,5 +33,8 @@ export default {
   }
   .card-header {
     background-color: #289ea8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 </style>

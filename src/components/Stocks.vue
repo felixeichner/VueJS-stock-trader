@@ -11,14 +11,9 @@
 import Stock from './Stock.vue';
 
 export default {
-  data() {
-    return {
-      stocks: [
-        {id: 1, name: "BMW", price: 123},
-        {id: 2, name: "John Deere", price: 67},
-        {id: 3, name: "Water", price: 94},
-        {id: 4, name: "Gold", price: 106},
-      ]
+  computed: {
+    stocks() {
+      return this.$store.getters.stocks;
     }
   },
   components: {

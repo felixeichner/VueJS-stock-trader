@@ -21,7 +21,7 @@
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">End Day</a>
+          <a class="nav-link" href="" @click="endDay">End Day</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle"
@@ -38,14 +38,23 @@
           </div>
         </li>
       </ul>
-      <strong class="navbar-text">Funds: € 10.000</strong>
+      <strong class="navbar-text">Funds: {{ funds | currency }}</strong>
     </div>
   </nav>
 </template>
 
 <script>
 export default {
-  
+  computed: {
+    funds() {
+      return this.$store.getters.funds;
+    }
+  },
+  methods: {
+    endDay() {
+      this.$store.dispatch('randomizeStocks');
+    }
+  }
 }
 </script>
 
