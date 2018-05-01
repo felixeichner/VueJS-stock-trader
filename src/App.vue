@@ -12,6 +12,9 @@ import Header from './components/Header.vue';
 export default {
   components: {
     AppHeader: Header
+  },
+  created() {
+    this.loadData;
   }
 }
 </script>

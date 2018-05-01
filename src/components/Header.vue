@@ -23,19 +23,8 @@
         <li class="nav-item">
           <a class="nav-link" href="#" @click="endDay">End Day</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle"
-             href="#"
-             id="navbarDropdownMenuLink"
-             data-toggle="dropdown"
-             aria-haspopup="true"
-             aria-expanded="false">
-            Save / Load Data
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#" @click="saveData">Save Data</a>
-            <a class="dropdown-item" href="#" @click="loadData">Load Data</a>
-          </div>
+        <li class="nav-item">
+          <a class="nav-link" href="#" @click="saveData">Save Data</a>
         </li>
       </ul>
       <strong class="navbar-text">Funds: {{ funds | currency }}</strong>
@@ -56,11 +45,6 @@ export default {
     },
     saveData() {
       this.$http.put('data.json', this.$store.getters.getState);
-    },
-    loadData() {
-      this.$http.get('data.json')
-        .then(response => response.json())
-        .then(data => this.$store.dispatch('initializeState', data))
     }
   }
 }
