@@ -14,7 +14,10 @@ export default {
     AppHeader: Header
   },
   created() {
-    this.loadData;
+    this.$http.get('data.json')
+      .then(response => response.json())
+      .then(data => this.$store.dispatch('initializeState', data))
+      .catch(error => console.log(error));
   }
 }
 </script>

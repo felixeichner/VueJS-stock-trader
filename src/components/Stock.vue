@@ -10,7 +10,10 @@
         <input type="number" v-model="quantity">
       </div>
       <div class="float-right">
-        <button class="btn btn-success" :disabled="quantity <= 0" @click="placeOrder">{{ stock.quantity ? 'Sell' : 'Buy' }}</button>
+        <button class="btn btn-success"
+                :disabled="quantity <= 0 || (!stock.quantity && quantity * stock.price > funds) ||
+                (stock.quantity && quantity > stock.quantity)"
+                @click="placeOrder">{{ stock.quantity ? 'Sell' : 'Buy' }}</button>
       </div>
     </div>
   </div>
@@ -24,6 +27,11 @@ export default {
   data() {
     return {
       quantity: 0
+    }
+  },
+  computed: {
+    funds() {
+      return this.$store.getters.funds;
     }
   },
   methods: {
